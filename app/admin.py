@@ -20,13 +20,13 @@ class CustomUserAdmin(admin.ModelAdmin):
     def disable_users(self, request, queryset):
         queryset.update(is_active=False)
         self.message_user(request, "Đã vô hiệu hóa người dùng thành công.")
-    disable_users.short_description = "Disable các user đã chọn"
+    disable_users.short_description = "Disable selected users"
 
     # Action để enable user
     def enable_users(self, request, queryset):
         queryset.update(is_active=True)
         self.message_user(request, "Đã kích hoạt lại người dùng thành công.")
-    enable_users.short_description = "Enable các user đã chọn"
+    enable_users.short_description = "Enable selected users"
 
 
 
