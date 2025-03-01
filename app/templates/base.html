@@ -26,11 +26,20 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Home</a>
                 </li>
+
                 {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                <!-- Dropdown User -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        👤 {{ user.username }}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'change_password' %}">🔑 Đổi mật khẩu</a></li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">🚪 Đăng xuất</a></li>
+                    </ul>
                 </li>
                 {% else %}
+                <!-- Nếu chưa đăng nhập -->
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">Login</a>
                 </li>
