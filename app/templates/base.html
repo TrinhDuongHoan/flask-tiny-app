@@ -34,6 +34,7 @@
                         👤 {{ user.username }}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'user_posts' user.username%}">👤 Trang cá nhân</a></li>
                         <li><a class="dropdown-item" href="{% url 'change_password' %}">🔑 Đổi mật khẩu</a></li>
                         <li><a class="dropdown-item" href="{% url 'logout' %}">🚪 Đăng xuất</a></li>
                     </ul>

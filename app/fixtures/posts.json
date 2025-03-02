@@ -1,0 +1,62 @@
+[
+  {
+      "model": "app.post",
+      "pk": 1,
+      "fields": {
+          "user": 1,
+          "title": "Bài viết đầu tiên",
+          "content": "Đây là nội dung của bài viết đầu tiên.",
+          "created_at": "2025-02-24T10:00:00Z"
+      }
+  },
+  {
+      "model": "app.post",
+      "pk": 2,
+      "fields": {
+          "user": 1,
+          "title": "Bài viết thứ hai",
+          "content": "Nội dung của bài viết thứ hai được viết ở đây.",
+          "created_at": "2025-02-25T12:30:00Z"
+      }
+  },
+  {
+      "model": "app.post",
+      "pk": 3,
+      "fields": {
+          "user": 1,
+          "title": "Bài viết thứ ba",
+          "content": "Bài viết thứ ba có nội dung rất thú vị!",
+          "created_at": "2025-02-26T08:15:00Z"
+      }
+  },
+  {
+      "model": "app.post",
+      "pk": 4,
+      "fields": {
+          "user": 1,
+          "title": "Bài viết thứ tư",
+          "content": "Đây là nội dung của bài viết số 4.",
+          "created_at": "2025-02-24T14:45:00Z"
+      }
+  },
+  {
+      "model": "app.post",
+      "pk": 5,
+      "fields": {
+          "user": 1,
+          "title": "Bài viết thứ năm",
+          "content": "Nội dung của bài viết thứ năm được viết ở đây.",
+          "created_at": "2025-02-25T16:00:00Z"
+      }
+  },
+  {
+      "model": "app.post",
+      "pk": 6,
+      "fields": {
+          "user": 1,
+          "title": "Bài viết thứ sáu",
+          "content": "Bài viết thứ sáu có nội dung rất thú vị!",
+          "created_at": "2025-02-26T18:20:00Z"
+      }
+  }
+]

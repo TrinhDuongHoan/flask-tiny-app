@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }} - BlogApp{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-3">{{ post.title }}</h2>
+    <p class="text-muted">By {{ post.author.username }} on {{ post.created_at|date:"d M Y" }}</p>
+    <hr>
+    <div>
+        {{ post.content|linebreaks }}
+    </div>
+    <a href="{% url 'home' %}" class="btn btn-secondary mt-3">Back to Home</a>
+</div>
+{% endblock %}
