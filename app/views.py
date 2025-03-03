@@ -11,6 +11,10 @@ from .models import Post
 from .forms import PostDeleteForm
 from .forms import PostForm
 
+    
+
+
+
 # Trang chủ
 def home(request):
     posts_list = Post.objects.all().order_by('-created_at')
