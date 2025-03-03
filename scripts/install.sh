@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Kiểm tra xem script có quyền thực thi không
-if [ "$EUID" -ne 0 ]; then
-    echo "Please run as root or with sudo"
-    exit
-fi
-
 # Bước 1: Cập nhật và nâng cấp các gói hệ thống
 echo "Updating system packages..."
 sudo apt update && sudo apt upgrade -y
