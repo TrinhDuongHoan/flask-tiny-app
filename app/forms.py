@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+from .models import Post
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -34,6 +35,19 @@ class UserPasswordChangeForm(PasswordChangeForm):
         widget=forms.PasswordInput(attrs={'placeholder': 'Xác nhận mật khẩu mới'}),
         label="Xác nhận mật khẩu mới",
     )
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'content']
+
+class PostDeleteForm(forms.Form):
+    posts = forms.ModelMultipleChoiceField(
+        queryset=Post.objects.all(), 
+        widget=forms.CheckboxSelectMultiple
+    )
+
+
 
 
 

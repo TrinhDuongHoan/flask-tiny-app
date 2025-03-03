@@ -1,14 +1,107 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm, LoginForm, UserPasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth import update_session_auth_hash
+from .models import Post
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from .models import Post
+from .forms import PostDeleteForm
+from .forms import PostForm
+
+    
+
+
 
 # Trang chủ
 def home(request):
-    return render(request, 'home.html')
+    posts_list = Post.objects.all().order_by('-created_at')
+    paginator = Paginator(posts_list, 10) 
+
+    page_number = request.GET.get('page') 
+    try:
+        posts = paginator.page(page_number)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
+    context = {
+        'posts': posts,
+    }
+    return render(request, 'home.html', context)
+
+def user_posts(request, username):
+    user = get_object_or_404(User, username=username)
+    posts = Post.objects.filter(user=user)
+
+    return render(request, 'user_posts.html', {'user': user, 'posts': posts})
+
+@login_required
+def create_post(request):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user  # Gán user hiện tại làm chủ bài viết
+            post.save()
+            return redirect('user_posts', username=request.user.username)
+    else:
+        form = PostForm()
+
+    return render(request, 'create_post.html', {'form': form})
+
+@login_required
+def edit_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+
+    if request.user != post.user:
+        return redirect('user_posts', username=request.user.username)
+
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('user_posts', username=request.user.username)
+    else:
+        form = PostForm(instance=post)
+
+    return render(request, 'edit_post.html', {'form': form})
+
+@login_required
+def delete_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+
+    if request.user != post.user:
+        return redirect('user_posts', username=request.user.username)
+
+    post.delete()
+    return redirect('user_posts', username=request.user.username)
+
+@login_required
+def delete_multiple_posts(request):
+    if request.method == "POST":
+        post_ids = request.POST.getlist("post_ids") 
+
+        if post_ids:
+            posts = Post.objects.filter(pk__in=post_ids, user=request.user) 
+            posts.delete()
+
+            messages.success(request, "✅ Selected posts have been deleted successfully!")
+        else:
+            messages.error(request, "❌ Please select at least one post to delete.")
+
+    return redirect("user_posts", username=request.user.username)
+
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    context = {
+        'post': post,
+    }
+    return render(request, 'post_detail.html', context)
+
 
 # View đăng ký
 def register_view(request):
