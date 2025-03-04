@@ -11,9 +11,6 @@ from .models import Post
 from .forms import PostDeleteForm
 from .forms import PostForm
 
-    
-
-
 
 # Trang chủ
 def home(request):
